@@ -1,7 +1,7 @@
-import time
 import functools
 
 def count_time(func):
+    "Decorator to count the time of a function"
     import time
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
@@ -11,15 +11,32 @@ def count_time(func):
         print(f"{elapsed_time:.5f} seconds")
     return wrapper
 
+###################################################################################################
+"""
+Compare the performance of sum and reduce.
+Seems like reduce is 10x slower than sum.
+sum is a built-in function in Python that is optimized for performance.
+reduce is a higher-order function that applies a function cumulatively to the items of an iterable.
+
+"""
+
+
 @count_time
-def a(lista:list):
+def reduce_performance(lista:list):
     functools.reduce(lambda x, y: x+y, lista)
     
 @count_time
-def b(lista:list):
+def sum_performance(lista:list):
     sum(lista)
 
-# a([1]*10**8)
-# b([1]*10**8)
-a = 17
-print(f"{a:07.2f}")
+"""
+test_list = [1]*10**8
+
+reduce_performance(test_list)
+# 5.26 s
+
+sum_performance(test_list)
+# 0.48 s
+"""
+
+##################################################################################################
